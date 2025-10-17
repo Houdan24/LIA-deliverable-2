@@ -48,3 +48,39 @@ print("\nAverage scores:")
 print("Math:", round(math.mean(), 2))
 print("Reading:", round(reading.mean(), 2))
 print("Writing:", round(writing.mean(), 2))
+
+# ===== PART 3: Manipulating your data =====
+
+# Create empty lists to store the filtered data
+gender_f, race_f, parent_ed_f, lunch_f, prep_f = [], [], [], [], []
+math_f, reading_f, writing_f = [], [], []
+
+# Loop through each student (each row in the dataset)
+for i in range(len(prep)):
+    # Check if the student completed the test preparation course
+    if prep[i] == "completed":
+        # Keep this student's data in all arrays
+        gender_f.append(gender[i])
+        race_f.append(race[i])
+        parent_ed_f.append(parent_ed[i])
+        lunch_f.append(lunch[i])
+        prep_f.append(prep[i])
+        math_f.append(math[i])
+        reading_f.append(reading[i])
+        writing_f.append(writing[i])
+
+# Convert lists back to NumPy arrays
+gender_f   = np.array(gender_f)
+race_f     = np.array(race_f)
+parent_ed_f= np.array(parent_ed_f)
+lunch_f    = np.array(lunch_f)
+prep_f     = np.array(prep_f)
+math_f     = np.array(math_f)
+reading_f  = np.array(reading_f)
+writing_f  = np.array(writing_f)
+
+# --- Print a short summary to confirm ---
+print("\nPART 3: Filtering Results")
+print("Original number of students:", len(prep))
+print("Students who completed test prep:", len(prep_f))
+print("Average math score (completed):", round(math_f.mean(), 2))
