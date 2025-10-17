@@ -84,3 +84,81 @@ print("\nPART 3: Filtering Results")
 print("Original number of students:", len(prep))
 print("Students who completed test prep:", len(prep_f))
 print("Average math score (completed):", round(math_f.mean(), 2))
+
+# ===== PART 4: Plotting your data =====
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 1) Scatter plot – relation between Math and Reading scores
+plt.scatter(math, reading)
+plt.title("Scatter: Math vs Reading")
+plt.xlabel("Math score")
+plt.ylabel("Reading score")
+plt.show()
+
+# 2) Bar plot – average Math score by test preparation course
+prep_labels, prep_counts = np.unique(prep, return_counts=True)
+avg_math_completed = math[prep == "completed"].mean()
+avg_math_none = math[prep == "none"].mean()
+plt.bar(["Completed", "None"], [avg_math_completed, avg_math_none])
+plt.title("Average Math Score by Test Prep Status")
+plt.xlabel("Test Prep")
+plt.ylabel("Average Math Score")
+plt.show()
+
+# 3) Histogram – distribution of Writing scores (shows how scores spread)
+plt.hist(writing, bins=10, color="lightblue")
+plt.title("Histogram: Writing Score Distribution")
+plt.xlabel("Writing score")
+plt.ylabel("Number of students")
+plt.show()
+
+# 4) Pie chart – percentage of students by test prep status
+plt.pie(prep_counts, labels=prep_labels, autopct="%1.1f%%")
+plt.title("Pie Chart: Test Prep Status")
+plt.show()
+
+# 5) Multi-array line plot – compare averages for students with/without test prep
+subjects = ["Math", "Reading", "Writing"]
+avg_completed = [math[prep == "completed"].mean(),
+                 reading[prep == "completed"].mean(),
+                 writing[prep == "completed"].mean()]
+avg_none = [math[prep == "none"].mean(),
+            reading[prep == "none"].mean(),
+            writing[prep == "none"].mean()]
+plt.plot(subjects, avg_completed, "b--", label="Completed")
+plt.plot(subjects, avg_none, "r:", label="None")
+plt.title("Average Scores by Subject")
+plt.xlabel("Subject")
+plt.ylabel("Average score")
+plt.legend()
+plt.show()
+
+# 6) Plot with grid – simple line plot of average scores overall
+overall_avg = [math.mean(), reading.mean(), writing.mean()]
+plt.plot(subjects, overall_avg, marker="o")
+plt.title("Overall Average Scores (with grid)")
+plt.xlabel("Subject")
+plt.ylabel("Average Score")
+plt.grid(True)
+plt.show()
+
+# 7) Two subplots side by side – Math score distributions for both groups
+plt.figure(figsize=(8, 3))
+plt.subplot(1, 2, 1)
+plt.hist(math[prep == "completed"], bins=10, color="green")
+plt.title("Math – Completed")
+plt.xlabel("Score")
+plt.ylabel("Count")
+
+plt.subplot(1, 2, 2)
+plt.hist(math[prep == "none"], bins=10, color="orange")
+plt.title("Math – None")
+plt.xlabel("Score")
+plt.ylabel("Count")
+
+plt.suptitle("Math Scores by Test Prep (Two Subplots)")
+plt.tight_layout()
+plt.show()
+
